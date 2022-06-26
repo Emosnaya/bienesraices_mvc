@@ -1,3 +1,4 @@
+cypress.config.js
 src/
 node_modules/
 vendor/

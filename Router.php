@@ -26,14 +26,16 @@ class Router {
         $rutas_protegidas = ['/admin', '/propiedades/crear','/propiedades/actualizar','/propiedades/eliminar','/vendedores/crear', '/vendedores/actualizar','/vendedores/eliminar'];
 
 
-        $urlActual = $_SERVER['PATH_INFO'] ?? '/';
+        $urlActual = $_SERVER['REQUEST_URI'] === '' ? '/' : $_SERVER['REQUEST_URI'];
         $metodo = $_SERVER['REQUEST_METHOD'];
+
+        $splitURL = explode('?', $urlActual);
 
 
         if ($metodo === 'GET'){
-            $fn = $this->rutasGet[$urlActual] ?? null;
+            $fn = $this->rutasGet[$splitURL[0]] ?? null;
         }else{
-            $fn = $this->rutasPost[$urlActual] ?? null;
+            $fn = $this->rutasPost[$splitURL[0]] ?? null;
         }
 
         //Proteger las rutas
